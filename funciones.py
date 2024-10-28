@@ -5,7 +5,6 @@ import base64
 def obtenerTarea(nombre_tarea, descripcion_tarea, prioridad_tarea):
     nombre_tarea = nombre_tarea.strip()
     descripcion_tarea = descripcion_tarea.strip()
-    error = ""
 
     if nombre_tarea == "" or descripcion_tarea == "":
         error = "Ambos campos deben estar completos"
@@ -34,7 +33,7 @@ def crear_ventana_error(error):
 
 
 def introducir_nueva_tarea(nombre, descripcion, prioridad):
-    #Codificamos los datos base64
+    #Codificamos los datos en base64/utf-8
     nombre_codificado = base64.b64encode(bytes(nombre,'utf-8'))
     descripcion_codificado = base64.b64encode(bytes(descripcion,'utf-8'))
     prioridad_codificado = base64.b64encode(bytes(prioridad,'utf-8'))
