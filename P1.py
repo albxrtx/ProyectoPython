@@ -59,6 +59,5 @@ boton = tk.Button(
 )
 boton.pack(pady=25)
 
-
 # Mantenemos la ventana en un bucle infinito hasta que el usuario cierra la ventana
 ventana.mainloop()
