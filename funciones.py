@@ -33,12 +33,13 @@ def crear_ventana_error(error):
     mensaje_error.pack(pady=30)
 
 
-def leer_tareas():
+def leer_tareas(ventana):
     #Declaramos el csv que vamos a leer
     archivo = pd.read_csv("tareas.csv")
     #Iteramos cada fila con el metodo iterrows de pandas y la imprimimos
     for index, fila in archivo.iterrows():
-            print(fila)
+            crear_tarea_card(ventana)
+            # print(fila)
 
 def introducir_nueva_tarea(nombre, descripcion, prioridad):
     # Codificamos los datos en base64/utf-8
@@ -66,5 +67,15 @@ def introducir_nueva_tarea(nombre, descripcion, prioridad):
 
 
 def encriptar_datos(dato):
-    # return base64.b64encode(bytes(dato, "utf-8"))
-    return dato
+    return base64.b64encode(bytes(dato, "utf-8"))
+    # return dato
+
+def crear_tarea_card(ventana):
+    tarea_card = tk.Frame(ventana)
+    nombre_label = tk.Label(tarea_card, text="Tarea", font=("Helvetica", 12))
+    nombre_label.pack(pady=10)
+    descripcion_label = tk.Label(tarea_card, text="Descripcion", font=("Helvetica", 12))
+    descripcion_label.pack(pady=10)
+    prioridad_label = tk.Label(tarea_card, text="Prioridad", font=("Helvetica", 12))
+    prioridad_label.pack(pady=10)
+    return tarea_card

@@ -66,7 +66,7 @@ imagen_tk = ImageTk.PhotoImage(imagen)
 boton_actualizar = ttk.Button(ventana, command=fn.leer_tareas,image=imagen_tk, width=20)
 boton_actualizar.pack(side='left', anchor='nw', pady=10,padx=10)
 
-
+tarea_card = fn.leer_tareas(ventana)
 
 
 # Mantenemos la ventana en un bucle infinito hasta que el usuario cierra la ventana
