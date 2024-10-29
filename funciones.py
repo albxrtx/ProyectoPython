@@ -1,5 +1,6 @@
 import tkinter as tk
 import pandas as pd
+import base64
 
 
 def obtenerTarea(nombre_tarea, descripcion_tarea, prioridad_tarea):
