@@ -33,11 +33,16 @@ def crear_ventana_error(error):
     mensaje_error.pack(pady=30)
 
 
+def leer_tareas():
+    archivo = pd.read_csv("tareas.csv")
+    tarea0 = archivo.loc[0]
+
+
 def introducir_nueva_tarea(nombre, descripcion, prioridad):
     # Codificamos los datos en base64/utf-8
-    nombre_codificado = base64.b64encode(bytes(nombre, "utf-8"))
-    descripcion_codificado = base64.b64encode(bytes(descripcion, "utf-8"))
-    prioridad_codificado = base64.b64encode(bytes(prioridad, "utf-8"))
+    nombre_codificado = encriptar_datos(nombre)
+    descripcion_codificado = encriptar_datos(descripcion)
+    prioridad_codificado = encriptar_datos(prioridad)
     # Decodificamos los datos
     # prioridad_decodificado = base64.b64decode(prioridad_codificado).decode('utf-8')
 
@@ -56,3 +61,8 @@ def introducir_nueva_tarea(nombre, descripcion, prioridad):
     archivo_tareas.to_csv("tareas.csv", index=False)
     # Mensaje de confirmación
     print("Tarea añadida correctamente")
+    leer_tareas()
+
+
+def encriptar_datos(dato):
+    return base64.b64encode(bytes(dato, "utf-8"))
