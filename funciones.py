@@ -34,9 +34,11 @@ def crear_ventana_error(error):
 
 
 def leer_tareas():
+    #Declaramos el csv que vamos a leer
     archivo = pd.read_csv("tareas.csv")
-    tarea0 = archivo.loc[0]
-
+    #Iteramos cada fila con el metodo iterrows de pandas y la imprimimos
+    for index, fila in archivo.iterrows():
+            print(fila)
 
 def introducir_nueva_tarea(nombre, descripcion, prioridad):
     # Codificamos los datos en base64/utf-8
@@ -61,8 +63,8 @@ def introducir_nueva_tarea(nombre, descripcion, prioridad):
     archivo_tareas.to_csv("tareas.csv", index=False)
     # Mensaje de confirmación
     print("Tarea añadida correctamente")
-    leer_tareas()
 
 
 def encriptar_datos(dato):
-    return base64.b64encode(bytes(dato, "utf-8"))
+    # return base64.b64encode(bytes(dato, "utf-8"))
+    return dato

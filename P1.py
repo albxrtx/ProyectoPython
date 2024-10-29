@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 import funciones as fn
+from PIL import Image, ImageTk
 
 # Creamos ventana principal
 ventana = tk.Tk()
@@ -58,6 +59,15 @@ boton = tk.Button(
     font=("Helvetica", 15),
 )
 boton.pack(pady=25)
+
+imagen_original = Image.open("actualizar.png")
+imagen = imagen_original.resize((50,50))
+imagen_tk = ImageTk.PhotoImage(imagen)
+boton_actualizar = ttk.Button(ventana, command=fn.leer_tareas,image=imagen_tk, width=20)
+boton_actualizar.pack(side='left', anchor='nw', pady=10,padx=10)
+
+
+
 
 # Mantenemos la ventana en un bucle infinito hasta que el usuario cierra la ventana
 ventana.mainloop()
