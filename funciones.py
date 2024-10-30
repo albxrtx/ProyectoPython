@@ -33,13 +33,21 @@ def crear_ventana_error(error):
     mensaje_error.pack(pady=30)
 
 
-def leer_tareas(ventana):
-    #Declaramos el csv que vamos a leer
-    archivo = pd.read_csv("tareas.csv")
-    #Iteramos cada fila con el metodo iterrows de pandas y la imprimimos
+def leer_tareas(contenedor):
+    # Limpiar el contenedor de tareas antes de cargar nuevas tareas
+    for widget in contenedor.winfo_children():
+        widget.destroy()
+
+    # Leer el CSV, asegurando que los encabezados están en la primera línea
+    archivo = pd.read_csv("tareas.csv", header=0)
+    # Iteramos cada fila con el metodo iterrows de pandas y la imprimimos
     for index, fila in archivo.iterrows():
-            crear_tarea_card(ventana)
-            # print(fila)
+        nombre = base64.b64decode(eval(fila["nombre"])).decode("utf-8")
+        descripcion = base64.b64decode(eval(fila["descripcion"])).decode("utf-8")
+        prioridad = base64.b64decode(eval(fila["prioridad"])).decode("utf-8")
+        # Crear tarjeta de tarea con los datos descodificados
+        crear_tarea_card(contenedor, nombre, descripcion, prioridad)
+
 
 def introducir_nueva_tarea(nombre, descripcion, prioridad):
     # Codificamos los datos en base64/utf-8
@@ -70,12 +78,28 @@ def encriptar_datos(dato):
     return base64.b64encode(bytes(dato, "utf-8"))
     # return dato
 
-def crear_tarea_card(ventana):
-    tarea_card = tk.Frame(ventana)
-    nombre_label = tk.Label(tarea_card, text="Tarea", font=("Helvetica", 12))
-    nombre_label.pack(pady=10)
-    descripcion_label = tk.Label(tarea_card, text="Descripcion", font=("Helvetica", 12))
-    descripcion_label.pack(pady=10)
-    prioridad_label = tk.Label(tarea_card, text="Prioridad", font=("Helvetica", 12))
-    prioridad_label.pack(pady=10)
-    return tarea_card
+
+def crear_tarea_card(contenedor, nombre, descripcion, prioridad):
+    tarea_card = tk.Frame(contenedor, bg="lightgray", bd=1, relief="solid")
+    tarea_card.pack(fill=tk.X, padx=10, pady=5)
+
+    nombre_label = tk.Label(
+        tarea_card, text=f"Tarea: {nombre}", font=("Helvetica", 12), bg="lightgray"
+    )
+    nombre_label.pack(anchor="w", padx=10, pady=5)
+
+    descripcion_label = tk.Label(
+        tarea_card,
+        text=f"Descripción: {descripcion}",
+        font=("Helvetica", 12),
+        bg="lightgray",
+    )
+    descripcion_label.pack(anchor="w", padx=10, pady=5)
+
+    prioridad_label = tk.Label(
+        tarea_card,
+        text=f"Prioridad: {prioridad}",
+        font=("Helvetica", 12),
+        bg="lightgray",
+    )
+    prioridad_label.pack(anchor="w", padx=10, pady=5)
