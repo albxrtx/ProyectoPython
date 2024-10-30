@@ -6,7 +6,7 @@ import base64
 def obtenerTarea(nombre_tarea, descripcion_tarea, prioridad_tarea):
     nombre_tarea = nombre_tarea.strip()
     descripcion_tarea = descripcion_tarea.strip()
-   
+
     if nombre_tarea == "" or descripcion_tarea == "":
         error = "Ambos campos deben estar completos"
         crear_ventana_error(error)
@@ -48,7 +48,8 @@ def leer_tareas(contenedor):
         prioridad = base64.b64decode(eval(fila["prioridad"])).decode("utf-8")
         # Crear tarjeta de tarea con los datos descodificados
         crear_tarea_card(contenedor, nombre, descripcion, prioridad)
-    return contador  
+    return contador
+
 
 def introducir_nueva_tarea(nombre, descripcion, prioridad):
     # Codificamos los datos en base64/utf-8
@@ -78,48 +79,49 @@ def introducir_nueva_tarea(nombre, descripcion, prioridad):
 def encriptar_datos(dato):
     return base64.b64encode(bytes(dato, "utf-8"))
 
+
 def formulario_delete():
     ventana_delete = tk.Tk()
     ventana_delete.geometry("300x200")
     ventana_delete.title("error")
     ventana_delete.iconbitmap("icono-todolist.ico")
     ventana_delete.resizable(0, 0)
-    h1 = tk.Label(ventana_delete, text="Introduce el nombre de una tarea",font=("Helvetica", 12))
+    h1 = tk.Label(
+        ventana_delete, text="Introduce el nombre de una tarea", font=("Helvetica", 12)
+    )
     h1.pack(pady=5)
-    cuadro_texto = tk.Text(ventana_delete,width=30,background="lightgray",height=2)
+    cuadro_texto = tk.Text(ventana_delete, width=30, background="lightgray", height=2)
     cuadro_texto.pack(pady=5)
 
     boton = tk.Button(
-    ventana_delete,
-    text="Eliminar",
-    command=lambda : eliminar_tarea(cuadro_texto.get("1.0", tk.END)),
-    activebackground="#ba1b1d",
-    activeforeground="#cecece",
-    background="#dd2527",
-    border=0,
-    padx=50,
-    pady=5,
-    foreground="#fefefe",
-    font=("Helvetica", 15),
+        ventana_delete,
+        text="Eliminar",
+        command=lambda: eliminar_tarea(cuadro_texto.get("1.0", tk.END)),
+        activebackground="#ba1b1d",
+        activeforeground="#cecece",
+        background="#dd2527",
+        border=0,
+        padx=50,
+        pady=5,
+        foreground="#fefefe",
+        font=("Helvetica", 15),
     )
     boton.pack(pady=10)
 
-def eliminar_tarea(tarea):
-    archivo = pd.read_csv("tareas.csv", header = 0)
-    tarea = tarea.strip()
+
+def eliminar_tarea(tarea_input):
+    # Cargar el archivo CSV en un DataFrame
+    archivo = pd.read_csv("tareas.csv", header=0)
+    tarea_input = tarea_input.strip()
+
+    # Iterar sobre las filas para encontrar el nombre de la tarea
     for index, fila in archivo.iterrows():
         nombre_tarea = base64.b64decode(eval(fila["nombre"])).decode("utf-8")
-        
-    if tarea == "":
-        error = "Introduce una tarea"
-        crear_ventana_error(error)
-    elif tarea != nombre_tarea:
-        error = f"'{tarea}' no existe"
-        crear_ventana_error(error)
-    else:
-        print(f"'{tarea}' ha sido eliminado")
 
-
+        if nombre_tarea == tarea_input:
+            archivo = archivo.drop(index)
+            archivo.to_csv("tareas.csv", index=False)
+            break
 
 
 def crear_tarea_card(contenedor, nombre, descripcion, prioridad):

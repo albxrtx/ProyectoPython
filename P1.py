@@ -63,7 +63,6 @@ boton.pack(pady=25)
 contenedor_tareas = tk.Frame(ventana, bg="white")
 contenedor_tareas.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
-
 imagen_original = Image.open("actualizar.png")
 imagen = imagen_original.resize((50, 50))
 imagen_tk = ImageTk.PhotoImage(imagen)
@@ -80,7 +79,7 @@ imagen2 = imagen_original2.resize((50, 50))
 imagen_tk2 = ImageTk.PhotoImage(imagen2)
 boton_delete = ttk.Button(
     ventana,
-    command = fn.formulario_delete,
+    command=fn.formulario_delete,
     image=imagen_tk2,
     width=20,
 )
