@@ -9,7 +9,7 @@ ventana.geometry("1500x700")
 ventana.title("To Do List")
 ventana.iconbitmap("icono-todolist.ico")  # Añadir icono .ico
 ventana.config(bg="lightgray")
-ventana.resizable(False, False)
+ventana.resizable(0, 0)
 # Creamos el sidebar, hacemos que ocupeto todo el alto y lo alineamos a la izquierda
 sidebar = tk.Frame(ventana)
 sidebar.pack(fill=tk.Y, side=tk.LEFT)
@@ -75,6 +75,16 @@ boton_actualizar = ttk.Button(
 )
 boton_actualizar.pack(side="left", anchor="nw", pady=10, padx=10)
 
+imagen_original2 = Image.open("delete.jpg")
+imagen2 = imagen_original2.resize((50, 50))
+imagen_tk2 = ImageTk.PhotoImage(imagen2)
+boton_delete = ttk.Button(
+    ventana,
+    command = fn.formulario_delete,
+    image=imagen_tk2,
+    width=20,
+)
+boton_delete.pack(side="left", anchor="nw", pady=10, padx=10)
 
 # Mantenemos la ventana en un bucle infinito hasta que el usuario cierra la ventana
 ventana.mainloop()

@@ -37,7 +37,6 @@ def leer_tareas(contenedor):
     # Limpiar el contenedor de tareas antes de cargar nuevas tareas
     for widget in contenedor.winfo_children():
         widget.destroy()
-
     # Leer el CSV, asegurando que los encabezados están en la primera línea
     archivo = pd.read_csv("tareas.csv", header=0)
     # Iteramos cada fila con el metodo iterrows de pandas y la imprimimos
@@ -47,7 +46,7 @@ def leer_tareas(contenedor):
         prioridad = base64.b64decode(eval(fila["prioridad"])).decode("utf-8")
         # Crear tarjeta de tarea con los datos descodificados
         crear_tarea_card(contenedor, nombre, descripcion, prioridad)
-
+            
 
 def introducir_nueva_tarea(nombre, descripcion, prioridad):
     # Codificamos los datos en base64/utf-8
@@ -76,7 +75,29 @@ def introducir_nueva_tarea(nombre, descripcion, prioridad):
 
 def encriptar_datos(dato):
     return base64.b64encode(bytes(dato, "utf-8"))
-    # return dato
+
+def formulario_delete():
+    ventana_delete = tk.Tk()
+    ventana_delete.geometry("300x200")
+    ventana_delete.title("error")
+    ventana_delete.iconbitmap("icono-todolist.ico")
+    ventana_delete.resizable(0, 0)
+    h1 = tk.Label(ventana_delete, text="Introduce el nombre de una tarea",font=("Helvetica", 12))
+    h1.pack()
+    cuadro_texto = tk.Text(ventana_delete,width=30,background="lightgray",height=2)
+    cuadro_texto.pack()
+    boton = tk.Button(
+    ventana_delete,
+    text="Eliminar",
+    activebackground="#237544",
+    activeforeground="#cecece",
+    background="#dd2527",
+    border=0,
+    foreground="#fefefe",
+    font=("Helvetica", 15),
+    )
+    boton.pack(pady=10)
+
 
 
 def crear_tarea_card(contenedor, nombre, descripcion, prioridad):
