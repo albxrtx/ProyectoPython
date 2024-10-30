@@ -6,7 +6,7 @@ import base64
 def obtenerTarea(nombre_tarea, descripcion_tarea, prioridad_tarea):
     nombre_tarea = nombre_tarea.strip()
     descripcion_tarea = descripcion_tarea.strip()
-
+   
     if nombre_tarea == "" or descripcion_tarea == "":
         error = "Ambos campos deben estar completos"
         crear_ventana_error(error)
@@ -39,14 +39,16 @@ def leer_tareas(contenedor):
         widget.destroy()
     # Leer el CSV, asegurando que los encabezados están en la primera línea
     archivo = pd.read_csv("tareas.csv", header=0)
+    contador = 0
     # Iteramos cada fila con el metodo iterrows de pandas y la imprimimos
     for index, fila in archivo.iterrows():
+        contador += 1
         nombre = base64.b64decode(eval(fila["nombre"])).decode("utf-8")
         descripcion = base64.b64decode(eval(fila["descripcion"])).decode("utf-8")
         prioridad = base64.b64decode(eval(fila["prioridad"])).decode("utf-8")
         # Crear tarjeta de tarea con los datos descodificados
         crear_tarea_card(contenedor, nombre, descripcion, prioridad)
-            
+    return contador  
 
 def introducir_nueva_tarea(nombre, descripcion, prioridad):
     # Codificamos los datos en base64/utf-8
@@ -112,7 +114,7 @@ def eliminar_tarea(tarea):
         error = "Introduce una tarea"
         crear_ventana_error(error)
     elif tarea != nombre_tarea:
-        error = "No coinciden"
+        error = f"'{tarea}' no existe"
         crear_ventana_error(error)
 
 
