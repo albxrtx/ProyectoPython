@@ -83,20 +83,38 @@ def formulario_delete():
     ventana_delete.iconbitmap("icono-todolist.ico")
     ventana_delete.resizable(0, 0)
     h1 = tk.Label(ventana_delete, text="Introduce el nombre de una tarea",font=("Helvetica", 12))
-    h1.pack()
+    h1.pack(pady=5)
     cuadro_texto = tk.Text(ventana_delete,width=30,background="lightgray",height=2)
-    cuadro_texto.pack()
+    cuadro_texto.pack(pady=5)
+
     boton = tk.Button(
     ventana_delete,
     text="Eliminar",
-    activebackground="#237544",
+    command=lambda : eliminar_tarea(cuadro_texto.get("1.0", tk.END)),
+    activebackground="#ba1b1d",
     activeforeground="#cecece",
     background="#dd2527",
     border=0,
+    padx=50,
+    pady=5,
     foreground="#fefefe",
     font=("Helvetica", 15),
     )
     boton.pack(pady=10)
+
+def eliminar_tarea(tarea):
+    archivo = pd.read_csv("tareas.csv", header = 0)
+    tarea = tarea.strip()
+    for index, fila in archivo.iterrows():
+        nombre_tarea = base64.b64decode(eval(fila["nombre"])).decode("utf-8")
+        
+    if tarea == "":
+        error = "Introduce una tarea"
+        crear_ventana_error(error)
+    elif tarea != nombre_tarea:
+        error = "No coinciden"
+        crear_ventana_error(error)
+
 
 
 
