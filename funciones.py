@@ -116,6 +116,8 @@ def eliminar_tarea(tarea):
     elif tarea != nombre_tarea:
         error = f"'{tarea}' no existe"
         crear_ventana_error(error)
+    else:
+        print(f"'{tarea}' ha sido eliminado")
 
 
 
