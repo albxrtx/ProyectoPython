@@ -44,7 +44,8 @@ menu_desplegable.pack(pady=10)
 boton = tk.Button(
     sidebar,
     text="AÑADIR",
-    command=lambda: fn.obtenerTarea(
+    command=lambda: fn.añadir_tarea(
+        contenedor_tareas,
         cuadro_texto_1.get("1.0", tk.END),
         cuadro_texto_2.get("1.0", tk.END),
         prioridad.get(),
@@ -62,6 +63,7 @@ boton.pack(pady=25)
 
 contenedor_tareas = tk.Frame(ventana, bg="white")
 contenedor_tareas.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+
 
 imagen_original = Image.open("actualizar.png")
 imagen = imagen_original.resize((50, 50))
