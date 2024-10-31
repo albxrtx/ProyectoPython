@@ -100,7 +100,7 @@ def crear_ventana_error(error_texto):
     ventana_error = tk.Tk()
     ventana_error.geometry("300x100")
     ventana_error.title("error")
-    ventana_error.iconbitmap("icono-todolist.ico")
+    ventana_error.iconbitmap("src/icono-todolist.ico")
     ventana_error.resizable(0, 0)
 
     mensaje_error = tk.Label(
@@ -122,7 +122,7 @@ def formulario_delete():
     ventana_delete = tk.Tk()
     ventana_delete.geometry("300x200")
     ventana_delete.title("error")
-    ventana_delete.iconbitmap("icono-todolist.ico")
+    ventana_delete.iconbitmap("src/icono-todolist.ico")
     ventana_delete.resizable(0, 0)
     h1 = tk.Label(
         ventana_delete, text="Introduce el nombre de una tarea", font=("Helvetica", 12)

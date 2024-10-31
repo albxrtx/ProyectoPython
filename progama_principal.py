@@ -7,7 +7,7 @@ from PIL import Image, ImageTk
 ventana = tk.Tk()
 ventana.geometry("1500x700")
 ventana.title("To Do List")
-ventana.iconbitmap("icono-todolist.ico")  # Añadir icono .ico
+ventana.iconbitmap("src/icono-todolist.ico")  # Añadir icono .ico
 ventana.config(bg="lightgray")
 ventana.resizable(0, 0)
 # Creamos el sidebar, hacemos que ocupeto todo el alto y lo alineamos a la izquierda
@@ -65,7 +65,7 @@ contenedor_tareas = tk.Frame(ventana, bg="white")
 contenedor_tareas.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
 
-imagen_original = Image.open("actualizar.png")
+imagen_original = Image.open("src/actualizar.png")
 imagen = imagen_original.resize((50, 50))
 imagen_tk = ImageTk.PhotoImage(imagen)
 boton_actualizar = ttk.Button(
@@ -76,7 +76,7 @@ boton_actualizar = ttk.Button(
 )
 boton_actualizar.pack(side="left", anchor="nw", pady=10, padx=10)
 
-imagen_original2 = Image.open("delete.jpg")
+imagen_original2 = Image.open("src/delete.jpg")
 imagen2 = imagen_original2.resize((50, 50))
 imagen_tk2 = ImageTk.PhotoImage(imagen2)
 boton_delete = ttk.Button(
